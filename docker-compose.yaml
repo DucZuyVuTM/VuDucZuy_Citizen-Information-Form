@@ -1,0 +1,59 @@
+services:
+  client:
+    build:
+      context: ./client
+    ports:
+      - "3000:81"
+    restart: always
+    networks:
+      - app-network
+    depends_on:
+      - dashboard_api
+
+  dashboard_api:
+    build:
+      context: ./dashboard_api
+    ports:
+      - "5000:5000"
+    restart: always
+    networks:
+      - app-network
+    depends_on:
+      - data_storage
+
+  data_storage:
+    build:
+      context: ./data_storage
+    image: postgres:15  # Sử dụng image cơ sở
+    environment:
+      POSTGRES_USER: app_user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: bigdata
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "81:81"
+    restart: always
+    networks:
+      - app-network
+    depends_on:
+      - client
+      - dashboard_api
+
+  ci_cd:
+    build:
+      context: ./ci_cd
+    restart: always
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

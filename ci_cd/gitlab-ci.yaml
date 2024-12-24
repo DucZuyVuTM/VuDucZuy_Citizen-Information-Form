@@ -1,0 +1,20 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker-compose build
+
+test:
+  stage: test
+  script:
+    - docker-compose up -d
+    - docker-compose exec data_processor pytest
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying to production"

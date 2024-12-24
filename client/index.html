@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Information</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel='icon' href='citizen.ico' type='image/x-icon'>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Citizen Information Form</h1>
+
+    <!-- Form thêm công dân -->
+    <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+        <br>
+        <label for="date_of_birth">Date of Birth:</label>
+        <input type="text" id="date_of_birth" required>
+        <br>
+        <label for="citizen_code">Citizen Code:</label>
+        <input type="text" id="citizen_code" required>
+        <br>
+        <button type="button" id="submit-button">Submit</button>
+    </form>
+
+    <!-- Form xóa công dân -->
+    <form id="delete-form" method="POST" class="delform">
+        <label for="dcitizen_code">Citizen Code:</label>
+        <input type="text" id="dcitizen_code" name="citizen_code" required>
+        <button type="submit">Delete Citizen</button>
+    </form>    
+
+    <h2>Submitted Citizens</h2>
+    <ul id="history-list"></ul>
+</body>
+</html>
