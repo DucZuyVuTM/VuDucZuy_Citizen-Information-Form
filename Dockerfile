@@ -11,4 +11,4 @@ COPY . .
 RUN chmod +x /usr/local/bin/docker-compose
 
 # Thiết lập lệnh khởi chạy
-CMD ["docker-compose", "up", "--build"]
+CMD ["sudo", "docker-compose", "up", "--build"]
