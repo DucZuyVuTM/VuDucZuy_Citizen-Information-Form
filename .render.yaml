@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: client
+    env: static
+    staticPublishPath: ./client
+    plan: free
+
+  - type: web
+    name: dashboard-api
+    env: python
+    buildCommand: pip install -r app/requirements.txt
+    startCommand: python app/server.py
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        value: postgres://app_user:password@data-storage.internal:5432/bigdata
+
+  - type: database
+    name: data-storage
+    databaseType: postgres
+    user: app_user
+    password: password
+    databaseName: bigdata
+    plan: free
+
+  - type: static
+    name: nginx
+    staticPublishPath: ./nginx
+    buildCommand: cp -r ./nginx /opt/render/project/nginx
+    plan: free
