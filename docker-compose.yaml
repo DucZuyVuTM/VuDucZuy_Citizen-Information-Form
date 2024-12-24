@@ -5,8 +5,6 @@ services:
     ports:
       - "3000:81"
     restart: always
-    networks:
-      - app-network
     depends_on:
       - dashboard_api
 
@@ -16,8 +14,6 @@ services:
     ports:
       - "5000:5000"
     restart: always
-    networks:
-      - app-network
     depends_on:
       - data_storage
 
@@ -32,8 +28,6 @@ services:
     restart: always
     ports:
       - "5432:5432"
-    networks:
-      - app-network
 
   nginx:
     build:
@@ -41,19 +35,6 @@ services:
     ports:
       - "81:81"
     restart: always
-    networks:
-      - app-network
     depends_on:
       - client
       - dashboard_api
-
-  ci_cd:
-    build:
-      context: ./ci_cd
-    restart: always
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
